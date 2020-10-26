@@ -1,6 +1,6 @@
 import React from 'react';
 import {useFormik} from 'formik';
-
+import * as Yup from 'yup'
 const initialValues={
   name:'best',
   email:'last@last',
@@ -10,35 +10,41 @@ const initialValues={
 const onSubmit = (values) => {
   console.log(values);
 };
+const validationSchema = Yup.object({
+  name:Yup.string().required('required'),
+  email: Yup.string().email('invalid email format').required('required!'),
+  channel:Yup.string().required('required'),
 
-const validate = values => {
-  let errors = {};
-  if (!values.name)errors.name='required';
-  if (!values.email)errors.email='required';
-  if (!values.channel)errors.channel='required';
-  return errors;
-};
+});
+// const validate = values => {
+//   let errors = {};
+//   if (!values.name)errors.name='required';
+//   if (!values.email)errors.email='required';
+//   if (!values.channel)errors.channel='required';
+//   return errors;
+// };
 
 function Youtube () {
   const formik = useFormik({
     initialValues,
     onSubmit,
-    validate
+    validationSchema,
+    // validate,
   });
   console.log(formik.touched);
   return (
     <div>
       <form onSubmit={formik.handleSubmit}>
         <label htmlFor='name'>name</label>
-        <input type="text" id="name" name="name" onChange={formik.handleChange} onBlur={formik.handleBlur} value={formik.values.name} />
+        <input type="text" id="name" name="name" {...formik.getFieldProps('name')}/>
         {formik.touched.name&&formik.errors.name?<div style={{color:'red'}} >{formik.errors.name}</div>:null}
 
         <label htmlFor='email'>email</label>
-        <input type="email" id="email" name="email" onChange={formik.handleChange} onBlur={formik.handleBlur} value={formik.values.email} />
+        <input type="email" id="email" name="email" {...formik.getFieldProps('email')} />
         {formik.touched.email&&formik.errors.email?<div style={{color:'red'}} >{formik.errors.email}</div>:null}
 
         <label htmlFor='channel'>channel</label>
-        <input type="text" id="channel" name="channel" onChange={formik.handleChange} onBlur={formik.handleBlur} value={formik.values.channel} />
+        <input type="text" id="channel" name="channel" {...formik.getFieldProps('channel')} />
         {formik.touched.channel&&formik.errors.channel?<div style={{color:'red'}} >{formik.errors.channel}</div>:null}
 
         <button>Submit</button>
