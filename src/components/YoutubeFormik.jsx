@@ -23,6 +23,7 @@ const initialValues={
 const onSubmit = (values,onSubmitProps) => {
   console.log(values);
   onSubmitProps.setSubmitting(false);
+  onSubmitProps.resetForm();
 
 };
 const validationSchema = Yup.object({
@@ -50,6 +51,7 @@ function Youtube () {
       onSubmit={onSubmit}
       validateOnChange={false}
       validateOnBlur
+      // enableReinitialize
       // validateOnMount
     >
       {formik => {
