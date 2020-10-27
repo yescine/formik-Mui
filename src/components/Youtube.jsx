@@ -16,13 +16,13 @@ const validationSchema = Yup.object({
   channel:Yup.string().required('required'),
 
 });
-// const validate = values => {
-//   let errors = {};
-//   if (!values.name)errors.name='required';
-//   if (!values.email)errors.email='required';
-//   if (!values.channel)errors.channel='required';
-//   return errors;
-// };
+const validate = values => {
+  let errors = {};
+  if (!values.name)errors.name='required';
+  if (!values.email)errors.email='required';
+  if (!values.channel)errors.channel='required';
+  return errors;
+};
 
 function Youtube () {
   const formik = useFormik({

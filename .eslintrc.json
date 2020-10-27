@@ -19,6 +19,7 @@
         "react-hooks"
     ],
     "rules": {
+        "no-unused-vars":"warn",
         "react/jsx-uses-react": "warn",   
         "react/jsx-uses-vars": "warn",
         "react-hooks/rules-of-hooks": "warn",
