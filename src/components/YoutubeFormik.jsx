@@ -1,5 +1,5 @@
 import React from 'react';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Formik, Form, Field, ErrorMessage, FieldArray, FastField } from 'formik';
 import * as Yup from 'yup';
 
 function ErrorMsg (props){
@@ -9,10 +9,15 @@ function ErrorMsg (props){
 }
 const initialValues={
   name:'best',
-  email:'last@last',
-  channel:'',
-  comments:'',
-  address:''
+  email:'last@last.com',
+  channel:'code',
+  comments:'some note',
+  address:'ad',
+  social:{
+    facebook:'',
+    twitter:'',
+  },
+  phoneNumbers:['']
 };
 
 const onSubmit = (values) => {
@@ -49,19 +54,48 @@ function Youtube () {
         <ErrorMessage name="channel" component={ErrorMsg} />
 
         <label htmlFor='address'>address</label>
-        <Field name="address" >
+        <FastField name="address" >
           {props => 
             <div>
               <input type='text' id='address' {...props.field} />
               {props.meta.touched && props.meta.error?<div>{props.meta.error}</div>:null}
             </div>}
-        </Field>
+        </FastField>
 
         <label htmlFor='comments'>comments</label>
         <Field as='textarea' id="comments" name="comments" />
         <ErrorMessage name="comments" >
           {ErrMsg => <div style={{color:'orange'}}>{ErrMsg}</div>}
         </ErrorMessage>
+
+        <label htmlFor='Facebook'>Facebook</label>
+        <Field type="text" id="facebook" name="social.facebook" />
+        <ErrorMessage name="facebook" component={ErrorMsg} />
+
+        <label htmlFor='twitter'>twitter</label>
+        <Field type="text" id="twitter" name="social.twitter" />
+        <ErrorMessage name="twitter" component={ErrorMsg} />
+
+        <label htmlFor='List of Phone Numbers'>List of Phone Numbers</label>
+        <FieldArray name='phoneNumbers' >
+          {FieldArrayProps => {
+            const {push, remove, form} = FieldArrayProps;
+            const {values} = form;
+            const {phoneNumbers} = values;
+            return (
+              <div>
+                {phoneNumbers.map((phoneNumbers, idx) => (
+                  <div key={idx}>
+                    <Field name={`phoneNumbers[${idx}]`}/>
+                    {idx===0?null:<button onClick={() => remove(idx)}>-</button>}
+                    {idx>phoneNumbers.length?null:<button onClick={() => push('')}>+</button>}
+                  </div>
+                ))}
+              </div>
+            );
+          }}
+        </FieldArray>    
+
 
         <button>Submit</button>
       </Form>
