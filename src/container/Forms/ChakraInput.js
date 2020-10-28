@@ -17,7 +17,7 @@ function ChakraInput (props) {
   return (
     <Field validate={validate?validate:null} name={name}>
       {({ field, form }) => (
-        <FormControl isInvalid={form.errors[name] && form.touched[name]}>
+        <FormControl>
           <FormLabel htmlFor={name}>{label}</FormLabel>
           <TextField 
             id={name}

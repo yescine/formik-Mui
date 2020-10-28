@@ -3,11 +3,16 @@ import './App.css';
 import Youtube from './components/Youtube';
 import YoutubeFormik from './components/YoutubeFormik';
 import FormGen from './container/Form.Gen';
+import Registration from './views/Registration'
 
 
 function App () {
   return (
     <>
+      <h1>Mui registration</h1>
+      <div className="App">
+        <Registration/>
+      </div>
       <h1>Basic Formik</h1>
       <div className="App">
         {/* <Youtube/> */}
