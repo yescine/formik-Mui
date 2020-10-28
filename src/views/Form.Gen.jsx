@@ -2,7 +2,7 @@
 import React from 'react';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
-import FormikControl from './FormikControl';
+import FormikControl from '../container/FormikControl';
 
 function FormikContainer () {
   const dropdownOptions = [
@@ -59,6 +59,8 @@ function FormikContainer () {
       initialValues={initialValues}
       validationSchema={validationSchema}
       onSubmit={onSubmit}
+      validateOnChange={false}
+      validateOnBlur
     >
       {formik => (
         <Form>

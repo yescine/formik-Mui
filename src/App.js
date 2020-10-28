@@ -2,8 +2,8 @@ import React from 'react';
 import './App.css';
 import Youtube from './components/Youtube';
 import YoutubeFormik from './components/YoutubeFormik';
-import FormGen from './container/Form.Gen';
-import Registration from './views/Registration'
+import FormGen from './views/Form.Gen';
+import Registration from './views/Registration';
 
 
 function App () {
