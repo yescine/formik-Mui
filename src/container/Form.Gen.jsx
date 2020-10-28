@@ -27,7 +27,8 @@ function FormikContainer () {
     selectOption: '',
     radioOption: '',
     checkboxOption: [],
-    birthDate: null
+    birthDate: null,
+    muiText:'test'
   };
   const validationSchema = Yup.object({
     email: Yup.string().required('Required'),
@@ -37,7 +38,8 @@ function FormikContainer () {
     checkboxOption: Yup.array().required('Required'),
     birthDate: Yup.date()
       .required('Required')
-      .nullable()
+      .nullable(),
+    muiText: Yup.string().required('Required for Import'), 
   });
   const onSubmit = values => {
     console.log('Form data', values);
@@ -60,6 +62,18 @@ function FormikContainer () {
     >
       {formik => (
         <Form>
+          <FormikControl
+            control='TextFieldMui'
+            type='text'
+            label='Mui Field'
+            name='muiText'
+            placeholder='test'
+            validate={(values) => {
+              let errors;
+              if (values.length<5)errors='short name';
+              return errors;
+            }}
+          />
           {formGenArr.map((elem, idx) => {
             return (
               <FormikControl
