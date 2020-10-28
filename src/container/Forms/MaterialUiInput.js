@@ -1,15 +1,16 @@
 import React from 'react';
 import { Field } from 'formik';
 
+import TextError from '../Forms/TextError';
 import FormLabel from '@material-ui/core/FormLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import TextField from '@material-ui/core/TextField';
-import { InputAdornment, MenuItem } from '@material-ui/core';
+import { Checkbox, InputAdornment, MenuItem } from '@material-ui/core';
 
-function ChakraInput (props) {
-  const { label, name, placeholder, validate, options, select, multiline, rows, InputAbormentSt, InputAbormentEnd, ...rest } = props;
+export function TexFieldMui (props) {
+  const { label, name, validate, options, InputAbormentSt, InputAbormentEnd, ...rest } = props;
   return (
     <Field validate={validate?validate:null} name={name}>
       {({ field, form, meta }) => {
@@ -22,10 +23,6 @@ function ChakraInput (props) {
               id={name}
               error={meta.touched && form.errors[name]}
               helperText={meta.touched && form.errors[name]}
-              placeholder={placeholder}
-              select={select}
-              multiline={multiline}
-              rows={rows}
               InputProps={{
                 startAdornment: InputAbormentSt?<InputAdornment position="start">{InputAbormentSt}</InputAdornment>:null,
                 endAdornment:InputAbormentEnd?<InputAdornment position="end">{InputAbormentEnd}</InputAdornment>:null,
@@ -45,4 +42,31 @@ function ChakraInput (props) {
   );
 }
 
-export default ChakraInput;
+export function CheckBoxMuiBool (props) {
+  const { name, label, validate, placeholder, ...rest } = props;
+  return (
+    <Field validate={validate?validate:null} name={name}>
+      {({ field, form, meta }) => {
+        return (
+          <FormControl>
+            <FormLabel htmlFor={name}>{label}</FormLabel>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  {...rest} 
+                  {...field}
+                  name={name}
+                  color="primary"
+                />
+              }
+              label={placeholder}
+            />
+            <FormHelperText>
+              <TextError>{meta.touched && form.errors[name]}</TextError>
+            </FormHelperText>
+          </FormControl>
+        );
+      }}
+    </Field>
+  );
+}

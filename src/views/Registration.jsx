@@ -11,7 +11,8 @@ const initialValues = {
   password:'',
   confirmPassword:'',
   status:'',
-  description:''
+  description:'',
+  isAdmin:''
 };
 
 const statusOptions=[
@@ -26,6 +27,7 @@ function Registration () {
     username: Yup.string().required('Required'),
     email: Yup.string().email('not valid email format').required('Required'),
     password: Yup.string().required('Password Required'),
+    isAdmin: Yup.bool().required('required status')
     
   });
   const validateConfirmPassword = (formik) => {
@@ -46,6 +48,7 @@ function Registration () {
     {control:'TextFieldMui', type:'password', label:'Confirm Password', name:'confirmPassword', validate:validateConfirmPassword},
     {control:'TextFieldMui', select:true, label:'Status', name:'status', options:statusOptions},
     {control:'TextFieldMui', type:'text', multiline:true, rows:3, label:'Description', name:'description'},
+    {control:'CheckBoxMuiBool', label:'Management status',placeholder:'Admin ?', name:'isAdmin'},
   ];
   return (
     <Formik
