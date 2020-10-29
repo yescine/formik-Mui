@@ -59,8 +59,8 @@ function Registration () {
   const formGenArr = [
     {control:'TextFieldMui', type:'text', label:'User name', name:'username', InputAbormentSt:'Mr'},
     {control:'TextFieldMui', type:'email', label:'Email', name:'email', placeholder:'dev@ex.com'},
-    {control:'TextFieldMui', type:'password', label:'Password', name:'password'},
-    {control:'TextFieldMui', type:'password', label:'Confirm Password', name:'confirmPassword', validate:validateConfirmPassword},
+    {control:'TextFieldMui', type:'password', label:'Password', name:'password', responsive:{xs:6,sm:6}},
+    {control:'TextFieldMui', type:'password', label:'Confirm Password', name:'confirmPassword', validate:validateConfirmPassword,responsive:{xs:6,sm:6}},
     {control:'TextFieldMui', select:true, label:'Status', name:'status', options:statusOptions},
     {control:'TextFieldMui', type:'text', multiline:true, rows:3, label:'Description', name:'description'},
     {control:'CheckBoxMuiBool', label:'Management status',placeholder:'Admin ?', name:'isAdmin'},
@@ -77,11 +77,11 @@ function Registration () {
       onSubmit={onSubmit}
     >
       {formik => (
-        <Form style={{padding:'1rem'}}>
+        <Form style={{padding:'0 12.5%'}}>
           <Grid container direction="row" justify="space-between" alignItems="center" spacing={1}>
             {formGenArr.map((elem, idx) => {
               return (
-                <Grid item xs={12} key={idx} >
+                <Grid item {...elem.responsive} xs={12} key={idx} >
                   <FormikControl
                     {...elem}
                     validate={elem.validate?() => elem.validate(formik):null}

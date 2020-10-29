@@ -23,7 +23,7 @@ export function TexFieldMui (props) {
     <Field validate={validate?validate:null} name={name}>
       {({ field, form, meta }) => {
         return (
-          <FormControl>
+          <FormControl fullWidth={rest.type!=='email'&&!InputAbormentSt}>
             <FormLabel htmlFor={name}>{label}</FormLabel>
             <TextField 
               {...rest} 
