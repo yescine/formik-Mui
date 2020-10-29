@@ -4,6 +4,7 @@ import { Field } from 'formik';
 import TextError from '../Forms/TextError';
 import FormLabel from '@material-ui/core/FormLabel';
 import FormControl from '@material-ui/core/FormControl';
+import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import TextField from '@material-ui/core/TextField';
@@ -61,6 +62,51 @@ export function CheckBoxMuiBool (props) {
               }
               label={placeholder}
             />
+            <FormHelperText>
+              <TextError>{meta.touched && form.errors[name]}</TextError>
+            </FormHelperText>
+          </FormControl>
+        );
+      }}
+    </Field>
+  );
+}
+
+export function CheckBoxMuiGroup (props) {
+  const { name, label, validate, options, ...rest } = props;
+  return (
+    <Field validate={validate?validate:null} name={name}>
+      {({ field, form, meta }) => {
+        return (
+          <FormControl>
+            <FormLabel component="label" htmlFor={name}>{label}</FormLabel>
+            <FormGroup>
+              {options.map(option => {
+                return (
+                  <FormControlLabel
+                    control={
+                      <Checkbox 
+                        {...rest} 
+                        {...field}
+                        name={option.value} 
+                        checked={form.values[name].includes(option.value)}
+                        onChange={event => {
+                          let result = form.values[name];
+                          if (event.target.checked){
+                            if (!result.includes(option.value))result.push(option.value);
+                            form.setFieldValue(name, result);
+                          } else {
+                            result = result.filter(elem => elem !== option.value)
+                            form.setFieldValue(name, result);
+                          }
+                        }}
+                        color='primary'
+                      />}
+                    label={option.key}
+                  />
+                );
+              })}
+            </FormGroup>            
             <FormHelperText>
               <TextError>{meta.touched && form.errors[name]}</TextError>
             </FormHelperText>

@@ -12,7 +12,8 @@ const initialValues = {
   confirmPassword:'',
   status:'',
   description:'',
-  isAdmin:''
+  isAdmin:true,
+  feature:['gantt']
 };
 
 const statusOptions=[
@@ -20,7 +21,11 @@ const statusOptions=[
   {key:'manager', value:'manager'},
   {key:'intern', value:'intern'},  
 ];
-
+const featureOptions=[
+  {key:'timeLine', value:'timeLine'},
+  {key:'kanban', value:'kanban'},
+  {key:'gantt', value:'gantt'},  
+];
 function Registration () {
 
   const validationSchema = Yup.object({
@@ -49,6 +54,8 @@ function Registration () {
     {control:'TextFieldMui', select:true, label:'Status', name:'status', options:statusOptions},
     {control:'TextFieldMui', type:'text', multiline:true, rows:3, label:'Description', name:'description'},
     {control:'CheckBoxMuiBool', label:'Management status',placeholder:'Admin ?', name:'isAdmin'},
+    {control:'CheckBoxMuiGroup', label:'Management feature', name:'feature', options:featureOptions},
+
   ];
   return (
     <Formik
