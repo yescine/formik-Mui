@@ -8,7 +8,7 @@ import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import TextField from '@material-ui/core/TextField';
-import { Checkbox, InputAdornment, MenuItem } from '@material-ui/core';
+import { Checkbox, InputAdornment, MenuItem, Radio, RadioGroup } from '@material-ui/core';
 
 export function TexFieldMui (props) {
   const { label, name, validate, options, InputAbormentSt, InputAbormentEnd, ...rest } = props;
@@ -96,7 +96,7 @@ export function CheckBoxMuiGroup (props) {
                             if (!result.includes(option.value))result.push(option.value);
                             form.setFieldValue(name, result);
                           } else {
-                            result = result.filter(elem => elem !== option.value)
+                            result = result.filter(elem => elem !== option.value);
                             form.setFieldValue(name, result);
                           }
                         }}
@@ -107,6 +107,37 @@ export function CheckBoxMuiGroup (props) {
                 );
               })}
             </FormGroup>            
+            <FormHelperText>
+              <TextError>{meta.touched && form.errors[name]}</TextError>
+            </FormHelperText>
+          </FormControl>
+        );
+      }}
+    </Field>
+  );
+}
+
+export function RadioButtonMui (props) {
+  const { name, label, validate, options, ...rest } = props;
+  return (
+    <Field validate={validate?validate:null} name={name}>
+      {({ field, form, meta }) => {
+        return (
+          <FormControl>
+            <FormLabel htmlFor={name}>{label}</FormLabel>
+            <RadioGroup 
+              {...rest} 
+              {...field}
+              name={name} 
+              value={form.values[name]} 
+              // onChange={event => {
+              //   console.log('Radio', event.target.value);
+              // }}
+            >
+              {options.map(option => (
+                <FormControlLabel value={option.value} control={<Radio />} label={option.label} />
+              ))}
+            </RadioGroup>
             <FormHelperText>
               <TextError>{meta.touched && form.errors[name]}</TextError>
             </FormHelperText>

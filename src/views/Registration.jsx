@@ -6,14 +6,15 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 
 const initialValues = {
-  username:'',
+  username:'qwe',
   email: 'dev@ex.com',
-  password:'',
-  confirmPassword:'',
-  status:'',
+  password:'qwe',
+  confirmPassword:'qwe',
+  status:'intern',
   description:'',
-  isAdmin:true,
-  feature:['gantt']
+  isAdmin:false,
+  feature:['gantt'],
+  theme:'dark'
 };
 
 const statusOptions=[
@@ -26,6 +27,13 @@ const featureOptions=[
   {key:'kanban', value:'kanban'},
   {key:'gantt', value:'gantt'},  
 ];
+
+const themeOptions=[
+  {label:'Dark', value:'dark'},
+  {label:'Light', value:'light'},
+  {label:'Blue', value:'blue'},  
+];
+
 function Registration () {
 
   const validationSchema = Yup.object({
@@ -55,6 +63,7 @@ function Registration () {
     {control:'TextFieldMui', type:'text', multiline:true, rows:3, label:'Description', name:'description'},
     {control:'CheckBoxMuiBool', label:'Management status',placeholder:'Admin ?', name:'isAdmin'},
     {control:'CheckBoxMuiGroup', label:'Management feature', name:'feature', options:featureOptions},
+    {control:'RadioButtonMui', label:'Choose Theme', name:'theme', options:themeOptions},
 
   ];
   return (
