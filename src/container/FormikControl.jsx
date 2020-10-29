@@ -5,7 +5,7 @@ import Select from './Forms/Select';
 import RadioButtons from './Forms/RadioButtons';
 import CheckboxGroup from './Forms/CheckboxGroup';
 import DatePicker from './Forms/DatePicker';
-import {TexFieldMui, CheckBoxMuiBool, CheckBoxMuiGroup, RadioButtonMui} from './Forms/MaterialUiInput';
+import {TexFieldMui, CheckBoxMuiBool, CheckBoxMuiGroup, RadioButtonMui, DatePickerMui, TimePickerMui} from './Forms/MaterialUiInput';
 
 function FormikControl (props) {
   const { control, ...rest } = props;
@@ -29,7 +29,11 @@ function FormikControl (props) {
   case 'CheckBoxMuiGroup':
     return <CheckBoxMuiGroup {...rest} />;     
   case 'RadioButtonMui':
-    return <RadioButtonMui {...rest} />;       
+    return <RadioButtonMui {...rest} />; 
+  case 'DatePickerMui':
+    return <DatePickerMui {...rest} />;   
+  case 'TimePickerMui':
+    return <TimePickerMui {...rest} />;          
   default:
     return null;
   }

@@ -14,7 +14,9 @@ const initialValues = {
   description:'',
   isAdmin:false,
   feature:['gantt'],
-  theme:'dark'
+  theme:'dark',
+  birthDay:new Date(),
+  timeSt:new Date()
 };
 
 const statusOptions=[
@@ -64,7 +66,9 @@ function Registration () {
     {control:'CheckBoxMuiBool', label:'Management status',placeholder:'Admin ?', name:'isAdmin'},
     {control:'CheckBoxMuiGroup', label:'Management feature', name:'feature', options:featureOptions},
     {control:'RadioButtonMui', label:'Choose Theme', name:'theme', options:themeOptions},
-
+    {control:'DatePickerMui', label:'Date of Birth', name:'birthDay'},
+    // {control:'TimePickerMui', label:'Time To Start', name:'timeSt'},
+    
   ];
   return (
     <Formik
@@ -74,7 +78,7 @@ function Registration () {
     >
       {formik => (
         <Form style={{padding:'1rem'}}>
-          <Grid container direction="row" justify="space-evenly" alignItems="center" spacing={2}>
+          <Grid container direction="row" justify="space-between" alignItems="center" spacing={1}>
             {formGenArr.map((elem, idx) => {
               return (
                 <Grid item xs={12} key={idx} >

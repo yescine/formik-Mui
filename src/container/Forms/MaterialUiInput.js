@@ -1,5 +1,7 @@
 import React from 'react';
 import { Field } from 'formik';
+import 'date-fns';
+import DateFnsUtils from '@date-io/date-fns';
 
 import TextError from '../Forms/TextError';
 import FormLabel from '@material-ui/core/FormLabel';
@@ -9,6 +11,11 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import TextField from '@material-ui/core/TextField';
 import { Checkbox, InputAdornment, MenuItem, Radio, RadioGroup } from '@material-ui/core';
+import {
+  MuiPickersUtilsProvider,
+  KeyboardTimePicker,
+  KeyboardDatePicker,
+} from '@material-ui/pickers';
 
 export function TexFieldMui (props) {
   const { label, name, validate, options, InputAbormentSt, InputAbormentEnd, ...rest } = props;
@@ -128,16 +135,72 @@ export function RadioButtonMui (props) {
             <RadioGroup 
               {...rest} 
               {...field}
-              name={name} 
-              value={form.values[name]} 
-              // onChange={event => {
-              //   console.log('Radio', event.target.value);
-              // }}
             >
               {options.map(option => (
                 <FormControlLabel value={option.value} control={<Radio />} label={option.label} />
               ))}
             </RadioGroup>
+            <FormHelperText>
+              <TextError>{meta.touched && form.errors[name]}</TextError>
+            </FormHelperText>
+          </FormControl>
+        );
+      }}
+    </Field>
+  );
+}
+
+export function DatePickerMui (props) {
+  const { name, label, validate, ...rest } = props;
+  return (
+    <Field validate={validate?validate:null} name={name}>
+      {({ field, form, meta }) => {
+        return (
+          <FormControl>
+            <MuiPickersUtilsProvider utils={DateFnsUtils} >
+              <KeyboardDatePicker
+                {...rest} 
+                {...field}
+                margin="normal"
+                id={name}
+                label={label}
+                format="MM/dd/yyyy"
+                onChange={date => form.setFieldValue(name, date, true)}
+                KeyboardButtonProps={{
+                  'aria-label': 'change date',
+                }}
+              />
+            </MuiPickersUtilsProvider>
+            <FormHelperText>
+              <TextError>{meta.touched && form.errors[name]}</TextError>
+            </FormHelperText>
+          </FormControl>
+        );
+      }}
+    </Field>
+  );
+}
+
+export function TimePickerMui (props) {
+  const { name, label, validate, ...rest } = props;
+  return (
+    <Field validate={validate?validate:null} name={name}>
+      {({ field, form, meta }) => {
+        return (
+          <FormControl>
+            <MuiPickersUtilsProvider utils={DateFnsUtils} >
+              <KeyboardTimePicker
+                {...rest} 
+                {...field}
+                margin="normal"
+                id={name}
+                label={label}
+                onChange={time => form.setFieldValue(name, time, true)}
+                KeyboardButtonProps={{
+                  'aria-label': 'change time',
+                }}
+              />
+            </MuiPickersUtilsProvider>
             <FormHelperText>
               <TextError>{meta.touched && form.errors[name]}</TextError>
             </FormHelperText>
