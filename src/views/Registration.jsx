@@ -16,7 +16,8 @@ const initialValues = {
   feature:['gantt'],
   theme:'dark',
   birthDay:new Date(),
-  timeSt:new Date()
+  timeSt:new Date(),
+  performance:10
 };
 
 const statusOptions=[
@@ -59,16 +60,17 @@ function Registration () {
   const formGenArr = [
     {control:'TextFieldMui', type:'text', label:'User name', name:'username', InputAbormentSt:'Mr'},
     {control:'TextFieldMui', type:'email', label:'Email', name:'email', placeholder:'dev@ex.com'},
-    {control:'TextFieldMui', type:'password', label:'Password', name:'password', responsive:{xs:6,sm:6}},
-    {control:'TextFieldMui', type:'password', label:'Confirm Password', name:'confirmPassword', validate:validateConfirmPassword,responsive:{xs:6,sm:6}},
+    {control:'TextFieldMui', type:'password', label:'Password', name:'password', responsive:{xs:6, sm:6}},
+    {control:'TextFieldMui', type:'password', label:'Confirm Password', name:'confirmPassword', validate:validateConfirmPassword, responsive:{xs:6, sm:6}},
     {control:'TextFieldMui', select:true, label:'Status', name:'status', options:statusOptions},
     {control:'TextFieldMui', type:'text', multiline:true, rows:3, label:'Description', name:'description'},
-    {control:'CheckBoxMuiBool', label:'Management status',placeholder:'Admin ?', name:'isAdmin'},
+    {control:'CheckBoxMuiBool', label:'Management status', placeholder:'Admin ?', name:'isAdmin'},
     {control:'CheckBoxMuiGroup', label:'Management feature', name:'feature', options:featureOptions},
     {control:'RadioButtonMui', label:'Choose Theme', name:'theme', options:themeOptions},
     {control:'DatePickerMui', label:'Date of Birth', name:'birthDay'},
-    // {control:'TimePickerMui', label:'Time To Start', name:'timeSt'},
-    
+    {control:'TimePickerMui', label:'Time To Start', name:'timeSt'},
+    {control:'SliderMui', label:'Performance Rate', name:'performance', step:1, marks:true, min:0, max:50},
+
   ];
   return (
     <Formik

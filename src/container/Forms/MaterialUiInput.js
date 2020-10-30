@@ -10,7 +10,7 @@ import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import TextField from '@material-ui/core/TextField';
-import { Checkbox, InputAdornment, MenuItem, Radio, RadioGroup } from '@material-ui/core';
+import { Checkbox, InputAdornment, MenuItem, Radio, RadioGroup, Slider } from '@material-ui/core';
 import {
   MuiPickersUtilsProvider,
   KeyboardTimePicker,
@@ -201,6 +201,33 @@ export function TimePickerMui (props) {
                 }}
               />
             </MuiPickersUtilsProvider>
+            <FormHelperText>
+              <TextError>{meta.touched && form.errors[name]}</TextError>
+            </FormHelperText>
+          </FormControl>
+        );
+      }}
+    </Field>
+  );
+}
+
+export function SliderMui (props) {
+  const { name, label, validate, ...rest } = props;
+  return (
+    <Field validate={validate?validate:null} name={name}>
+      {({ field, form, meta }) => {
+        return (
+          <FormControl fullWidth>
+            <FormLabel htmlFor={name}>{label}</FormLabel>
+            <Slider
+              {...rest} 
+              {...field}
+              id={name}
+              name={name}
+              value={form.values[name]}
+              onChange={(event, value) => form.setFieldValue(name, value, true)}
+              valueLabelDisplay="auto"
+            />
             <FormHelperText>
               <TextError>{meta.touched && form.errors[name]}</TextError>
             </FormHelperText>
